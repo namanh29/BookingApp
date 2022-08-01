@@ -22,6 +22,9 @@
             <v-btn color="primary" @click="submit">
               Login
             </v-btn>
+            <v-btn color="primary" @click="register">
+              Register
+            </v-btn>
           </div>
         </v-card-text>
       </v-card>
@@ -41,11 +44,11 @@ export default {
   },
   methods: {
     ...mapActions({
-      setAuthentication: "user/setAuthentication"
+      // setAuthentication: "user/setAuthentication"
     }),
     async submit() {
       const data = await axiosIns.post(
-        'http://localhost:8089/api/v1/login',
+        'http://103.174.213.91:8089/api/v1/login',
         {
           "username": this.username,
           "password": this.password
@@ -55,10 +58,13 @@ export default {
         localStorage.username = this.username
         localStorage.userId = data.data.data.id
         localStorage.jwt = data.data.data.jwt
-        this.setAuthentication(true)
-        // this.$router.push({ path: '/' })
+        // this.setAuthentication(true)
+        // this.$router.go("Home")
         this.$router.push({ name: 'Home' })
       }
+    },
+    register() {
+      this.$router.push({ name: 'Register' })
     }
   }
 }
